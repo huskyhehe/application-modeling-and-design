@@ -1,0 +1,144 @@
+@startuml
+skinparam linetype ortho
+
+
+
+
+class ProductManagement.Bundle {
+~ String title
+~ ArrayList<Product> bundledProducts
+~ ArrayList<Market> targetMarkets
+~ HashMap<MarketChannelAssignment,Integer> discountMap
+~ ArrayList<OrderKit> orderKits
++ String getTitle()
++ ArrayList<Product> getBundledProducts()
++ int getOriginalPrice()
++ ArrayList<OrderKit> getOrderKits()
++ HashMap<MarketChannelAssignment,Integer> getDiscountMap()
++ void addProduct(Product)
++ void addToDiscountMap(MarketChannelAssignment,Integer)
++ int calculateOriginalPrice()
++ int getSalesRevenue()
++ int getQuantitySold()
++ void printDetails()
+}
+
+class OrderManagement.Order {
+~ CustomerProfile customer
+~ ArrayList<OrderKit> orderKits
+~ MarketChannelAssignment mcAssignment
++ MarketChannelAssignment getMcAssignment()
++ OrderKit newOrderKit(Bundle,int)
++ void addOrderKit(OrderKit)
++ int getSalesRevenue()
++ ArrayList<OrderKit> getOrderKits()
++ boolean isBundleInOrder(Bundle)
++ int getTotalOriginalPrice()
++ int getTotalSavings()
++ void displayForCustomer()
++ void printDetails()
+}
+
+
+
+
+class MarketModel.Channel {
+~ String name
+~ ArrayList<Market> markets
+~ ArrayList<AdSet> adSets
+~ ArrayList<MarketChannelAssignment> assignments
+~ ArrayList<Order> channelOrders
++ String getName()
++ ArrayList<Market> getMarkets()
++ ArrayList<MarketChannelAssignment> getAssignments()
++ ArrayList<Order> getChannelOrders()
++ int getSalesRevenue()
++ int getOrderQuantity()
++ void printDetails()
+}
+
+class MarketModel.MarketChannelAssignment {
+~ String code
+~ Market market
+~ Channel channel
+~ AdSet adSet
+~ ArrayList<Bundle> displayBundles
++ String getCode()
++ Market getMarket()
++ Channel getChannel()
++ AdSet getAdSet()
++ ArrayList<Bundle> getDisplayBundles()
++ void setAdSet(AdSet)
++ int getKitDiscount(Bundle)
++ int getKitFinalPrice(Bundle)
++ void displayBundlesForCustomer()
+}
+
+
+
+
+class MarketModel.Market {
+~ String name
+~ ArrayList<CustomerProfile> customerGroup
+~ ArrayList<Channel> channels
+~ ArrayList<MarketChannelAssignment> assignments
+~ ArrayList<Order> marketOrders
++ String getName()
++ int getSize()
++ ArrayList<CustomerProfile> getCustomerGroup()
++ ArrayList<Channel> getChannels()
++ ArrayList<MarketChannelAssignment> getAssignments()
++ ArrayList<Order> getMarketOrders()
++ MarketChannelAssignment newAssignment(Channel)
++ int getSalesRevenue()
++ int getOrderQuantity()
++ void printDetails()
+}
+
+class OrderManagement.OrderKit {
+~ Bundle selectedBundle
+~ int finalPrice
+~ int quantitySold
+~ int discount
+~ Order order
++ Bundle getSelectedBundle()
++ int getTotalFinalPrice()
++ int getTotalOriginalPrice()
++ int getQuantitySold()
++ int getTotalDiscount()
++ void printDetails()
++ void displayForCustomer()
+}
+class ProductManagement.Product {
+~ String name
+~ int targetPrice
+~ ArrayList<OrderItem> orderItems
++ int getTargetPrice()
++ void addOrderItem(OrderItem)
++ int getProductSalesPerformance()
++ int getProductSalesRevenue()
++ int geProductQuantitySold()
++ String getName()
++ void printDetails()
+}
+
+
+
+class MarketModel.AdSet {
+~ String name
+~ String description
+~ MarketChannelAssignment mca
+~ int costPerSale
+~ ArrayList<Order> adSetOrders
++ String getName()
++ String getDescription()
++ ArrayList<Order> getAdLeadOrders()
++ int getTotalCost()
++ int getOrderCount()
++ int getSalesRevenue()
++ int getOrderQuantity()
++ void displayForCustomer()
++ void printDetails()
+}
+
+@enduml
